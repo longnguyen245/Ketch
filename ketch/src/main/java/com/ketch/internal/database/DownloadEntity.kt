@@ -13,6 +13,11 @@ internal data class DownloadEntity(
     var path: String = "",
     var fileName: String = "",
     var tag: String = "",
+    var progressTitle: String = "",
+    var failedTitle: String = "",
+    var successTitle: String = "",
+    var canceledTitle: String = "",
+    var pausedTitle: String = "",
     @PrimaryKey
     var id: Int = 0,
     var headersJson: String = "",

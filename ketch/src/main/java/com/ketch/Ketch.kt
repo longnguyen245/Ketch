@@ -6,6 +6,7 @@ import com.ketch.internal.database.DatabaseInstance
 import com.ketch.internal.download.ApiResponseHeaderChecker
 import com.ketch.internal.download.DownloadManager
 import com.ketch.internal.download.DownloadRequest
+import com.ketch.internal.download.DownloadTitles
 import com.ketch.internal.network.RetrofitInstance
 import com.ketch.internal.utils.DownloadConst
 import com.ketch.internal.utils.DownloadLogger
@@ -193,6 +194,7 @@ class Ketch private constructor(
         metaData: String = "",
         headers: HashMap<String, String> = hashMapOf(),
         supportPauseResume: Boolean = true,
+        downloadTitles: DownloadTitles? = null
     ): Int {
         val downloadRequest = prepareDownloadRequest(
             url = url,
@@ -202,6 +204,7 @@ class Ketch private constructor(
             headers = headers,
             metaData = metaData,
             supportPauseResume = supportPauseResume,
+            downloadTitles = downloadTitles
         )
         downloadManager.downloadAsync(downloadRequest)
         return downloadRequest.id
@@ -226,6 +229,7 @@ class Ketch private constructor(
         metaData: String = "",
         headers: HashMap<String, String> = hashMapOf(),
         supportPauseResume: Boolean = true,
+        downloadTitles: DownloadTitles? = null
     ): Int {
         val downloadRequest = mutex.withLock {
             prepareDownloadRequest(
@@ -236,6 +240,7 @@ class Ketch private constructor(
                 headers = headers,
                 metaData = metaData,
                 supportPauseResume = supportPauseResume,
+                downloadTitles = downloadTitles
             )
         }
         downloadManager.download(downloadRequest)
@@ -551,6 +556,7 @@ class Ketch private constructor(
         headers: HashMap<String, String>,
         metaData: String,
         supportPauseResume: Boolean,
+        downloadTitles: DownloadTitles?
     ): DownloadRequest {
         require(url.isNotEmpty() && path.isNotEmpty() && fileName.isNotEmpty()) {
             "Missing ${if (url.isEmpty()) "url" else if (path.isEmpty()) "path" else "fileName"}"
@@ -569,6 +575,7 @@ class Ketch private constructor(
             headers = headers,
             metaData = metaData,
             supportPauseResume = supportPauseResume,
+            downloadTitles = downloadTitles
         )
 
         return downloadRequest

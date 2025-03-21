@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.work.ForegroundInfo
 import com.ketch.NotificationConfig
+import com.ketch.internal.download.DownloadTitles
 import com.ketch.internal.utils.DownloadConst
 import com.ketch.internal.utils.NotificationConst
 import com.ketch.internal.utils.TextUtil
@@ -34,7 +35,8 @@ internal class DownloadNotificationManager(
     private val context: Context,
     private val notificationConfig: NotificationConfig,
     private val requestId: Int,
-    private val fileName: String
+    private val fileName: String,
+    private val downloadTitles: DownloadTitles?
 ) {
 
     private var foregroundInfo: ForegroundInfo? = null
@@ -140,7 +142,7 @@ internal class DownloadNotificationManager(
 
             var nb = notificationBuilder
                 .setSmallIcon(notificationConfig.smallIcon)
-                .setContentTitle("Downloading $fileName")
+                .setContentTitle(downloadTitles?.progressTitle ?: "Downloading $fileName")
                 .setContentIntent(pendingIntentOpen)
                 .setProgress(DownloadConst.MAX_VALUE_PROGRESS, progress, if (length == 0L) true else false)
                 .setOnlyAlertOnce(true)
@@ -223,7 +225,7 @@ internal class DownloadNotificationManager(
                     NotificationConst.KEY_NOTIFICATION_SMALL_ICON,
                     notificationConfig.smallIcon
                 )
-                putExtra(DownloadConst.KEY_FILE_NAME, fileName)
+                putExtra(DownloadConst.KEY_FILE_NAME, downloadTitles?.successTitle ?: fileName)
                 putExtra(DownloadConst.KEY_LENGTH, totalLength)
                 putExtra(DownloadConst.KEY_REQUEST_ID, requestId)
                 putExtra(NotificationConst.KEY_NOTIFICATION_ID, notificationId)
@@ -256,7 +258,7 @@ internal class DownloadNotificationManager(
                     NotificationConst.KEY_NOTIFICATION_SMALL_ICON,
                     notificationConfig.smallIcon
                 )
-                putExtra(DownloadConst.KEY_FILE_NAME, fileName)
+                putExtra(DownloadConst.KEY_FILE_NAME, downloadTitles?.failedTitle ?: fileName)
                 putExtra(DownloadConst.KEY_REQUEST_ID, requestId)
                 putExtra(NotificationConst.KEY_NOTIFICATION_ID, notificationId)
                 putExtra(DownloadConst.KEY_PROGRESS, currentProgress)
@@ -288,7 +290,7 @@ internal class DownloadNotificationManager(
                     NotificationConst.KEY_NOTIFICATION_SMALL_ICON,
                     notificationConfig.smallIcon
                 )
-                putExtra(DownloadConst.KEY_FILE_NAME, fileName)
+                putExtra(DownloadConst.KEY_FILE_NAME, downloadTitles?.canceledTitle ?: fileName)
                 putExtra(DownloadConst.KEY_REQUEST_ID, requestId)
                 putExtra(NotificationConst.KEY_NOTIFICATION_ID, notificationId)
                 action = NotificationConst.ACTION_DOWNLOAD_CANCELLED
@@ -320,7 +322,7 @@ internal class DownloadNotificationManager(
                     NotificationConst.KEY_NOTIFICATION_SMALL_ICON,
                     notificationConfig.smallIcon
                 )
-                putExtra(DownloadConst.KEY_FILE_NAME, fileName)
+                putExtra(DownloadConst.KEY_FILE_NAME, downloadTitles?.pausedTitle ?: fileName)
                 putExtra(DownloadConst.KEY_PROGRESS, currentProgress)
                 putExtra(DownloadConst.KEY_REQUEST_ID, requestId)
                 putExtra(NotificationConst.KEY_NOTIFICATION_ID, notificationId)

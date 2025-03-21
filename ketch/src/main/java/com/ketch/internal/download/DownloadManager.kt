@@ -247,7 +247,14 @@ internal class DownloadManager(
                     context = context,
                     notificationConfig = notificationConfig,
                     requestId = id,
-                    fileName = downloadEntity.fileName
+                    fileName = downloadEntity.fileName,
+                    downloadTitles = DownloadTitles(
+                        progressTitle = downloadEntity.progressTitle,
+                        failedTitle = downloadEntity.failedTitle,
+                        successTitle = downloadEntity.successTitle,
+                        canceledTitle = downloadEntity.canceledTitle,
+                        pausedTitle = downloadEntity.pausedTitle,
+                    ),
                 ).sendDownloadCancelledNotification()
             }
         }

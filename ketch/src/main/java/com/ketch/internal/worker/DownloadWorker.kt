@@ -54,13 +54,15 @@ internal class DownloadWorker(
         val fileName = downloadRequest.fileName
         val headers = downloadRequest.headers
         val supportPauseResume = downloadRequest.supportPauseResume // in case of false, we will not store total length info in DB
+        val downloadTitles = downloadRequest.downloadTitles
 
         if (notificationConfig.enabled) {
             downloadNotificationManager = DownloadNotificationManager(
                 context = context,
                 notificationConfig = notificationConfig,
                 requestId = id,
-                fileName = fileName
+                fileName = fileName,
+                downloadTitles = downloadTitles
             )
         }
 
