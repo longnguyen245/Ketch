@@ -7,6 +7,7 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
+import com.ketch.ButtonTextConfig
 import com.ketch.DownloadConfig
 import com.ketch.DownloadModel
 import com.ketch.Logger
@@ -41,6 +42,7 @@ internal class DownloadManager(
     private val workManager: WorkManager,
     private val downloadConfig: DownloadConfig,
     private val notificationConfig: NotificationConfig,
+    private val buttonTextConfig: ButtonTextConfig,
     private val logger: Logger
 ) {
 
@@ -138,6 +140,7 @@ internal class DownloadManager(
         val inputDataBuilder = Data.Builder()
             .putString(DownloadConst.KEY_DOWNLOAD_REQUEST, downloadRequest.toJson())
             .putString(DownloadConst.KEY_NOTIFICATION_CONFIG, notificationConfig.toJson())
+            .putString(DownloadConst.KEY_BUTTON_TEXT_CONFIG, buttonTextConfig.toJson())
 
         val inputData = inputDataBuilder.build()
 
@@ -190,7 +193,20 @@ internal class DownloadManager(
                     uuid = downloadWorkRequest.id.toString(),
                     lastModified = System.currentTimeMillis(),
                     userAction = UserAction.START.toString(),
-                    metaData = downloadRequest.metaData
+                    metaData = downloadRequest.metaData,
+                    progressTitle = downloadRequest.downloadTitles?.progressTitle ?: "",
+                    failedTitle = downloadRequest.downloadTitles?.failedTitle ?: "",
+                    successTitle = downloadRequest.downloadTitles?.successTitle ?: "",
+                    canceledTitle = downloadRequest.downloadTitles?.canceledTitle ?: "",
+                    pausedTitle = downloadRequest.downloadTitles?.pausedTitle ?: "",
+                    failedContentText = downloadRequest.downloadContentTexts?.failedContentText
+                        ?: "",
+                    successContentText = downloadRequest.downloadContentTexts?.successContentText
+                        ?: "",
+                    canceledContentText = downloadRequest.downloadContentTexts?.canceledContentText
+                        ?: "",
+                    pausedContentText = downloadRequest.downloadContentTexts?.pausedContentText
+                        ?: ""
                 )
             )
         }
@@ -219,7 +235,20 @@ internal class DownloadManager(
                     tag = downloadEntity.tag,
                     id = downloadEntity.id,
                     headers = WorkUtil.jsonToHashMap(downloadEntity.headersJson),
-                    metaData = downloadEntity.metaData
+                    metaData = downloadEntity.metaData,
+                    downloadTitles = DownloadTitles(
+                        progressTitle = downloadEntity.progressTitle,
+                        successTitle = downloadEntity.successTitle,
+                        failedTitle = downloadEntity.failedTitle,
+                        canceledTitle = downloadEntity.canceledTitle,
+                        pausedTitle = downloadEntity.pausedTitle
+                    ),
+                    downloadContentTexts = DownloadContentTexts(
+                        successContentText = downloadEntity.successContentText,
+                        failedContentText = downloadEntity.failedContentText,
+                        canceledContentText = downloadEntity.canceledContentText,
+                        pausedContentText = downloadEntity.pausedContentText
+                    )
                 )
             )
         }
@@ -246,6 +275,7 @@ internal class DownloadManager(
                 DownloadNotificationManager(
                     context = context,
                     notificationConfig = notificationConfig,
+                    buttonTextConfig = buttonTextConfig,
                     requestId = id,
                     fileName = downloadEntity.fileName,
                     downloadTitles = DownloadTitles(
@@ -255,6 +285,12 @@ internal class DownloadManager(
                         canceledTitle = downloadEntity.canceledTitle,
                         pausedTitle = downloadEntity.pausedTitle,
                     ),
+                    downloadContentTexts = DownloadContentTexts(
+                        failedContentText = downloadEntity.failedContentText,
+                        successContentText = downloadEntity.successContentText,
+                        canceledContentText = downloadEntity.canceledContentText,
+                        pausedContentText = downloadEntity.pausedContentText
+                    )
                 ).sendDownloadCancelledNotification()
             }
         }
@@ -291,7 +327,20 @@ internal class DownloadManager(
                     tag = downloadEntity.tag,
                     id = downloadEntity.id,
                     headers = WorkUtil.jsonToHashMap(downloadEntity.headersJson),
-                    metaData = downloadEntity.metaData
+                    metaData = downloadEntity.metaData,
+                    downloadTitles = DownloadTitles(
+                        progressTitle = downloadEntity.progressTitle,
+                        failedTitle = downloadEntity.failedTitle,
+                        successTitle = downloadEntity.successTitle,
+                        canceledTitle = downloadEntity.canceledTitle,
+                        pausedTitle = downloadEntity.pausedTitle,
+                    ),
+                    downloadContentTexts = DownloadContentTexts(
+                        failedContentText = downloadEntity.failedContentText,
+                        successContentText = downloadEntity.successContentText,
+                        canceledContentText = downloadEntity.canceledContentText,
+                        pausedContentText = downloadEntity.pausedContentText
+                    )
                 )
             )
         }

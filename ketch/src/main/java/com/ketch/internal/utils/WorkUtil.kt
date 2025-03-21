@@ -2,6 +2,7 @@ package com.ketch.internal.utils
 
 import android.content.Context
 import androidx.core.app.NotificationManagerCompat
+import com.ketch.ButtonTextConfig
 import com.ketch.NotificationConfig
 import com.ketch.internal.download.DownloadRequest
 import kotlinx.serialization.encodeToString
@@ -21,9 +22,20 @@ internal object WorkUtil {
         return Json.encodeToString(this)
     }
 
+    fun ButtonTextConfig.toJson(): String {
+        return Json.encodeToString(this)
+    }
+
     fun jsonToNotificationConfig(jsonStr: String): NotificationConfig {
         if (jsonStr.isEmpty()) {
             return NotificationConfig(smallIcon = NotificationConst.DEFAULT_VALUE_NOTIFICATION_SMALL_ICON)
+        }
+        return Json.decodeFromString(jsonStr)
+    }
+
+    fun jsonToButtonTextConfig(jsonStr: String): ButtonTextConfig {
+        if (jsonStr.isEmpty()) {
+            return ButtonTextConfig()
         }
         return Json.decodeFromString(jsonStr)
     }

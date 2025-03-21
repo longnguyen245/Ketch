@@ -18,6 +18,13 @@ internal data class DownloadEntity(
     var successTitle: String = "",
     var canceledTitle: String = "",
     var pausedTitle: String = "",
+
+    var progressContentText: String= "",
+    val failedContentText: String= "",
+    val successContentText: String= "",
+    val canceledContentText: String= "",
+    val pausedContentText: String= "",
+
     @PrimaryKey
     var id: Int = 0,
     var headersJson: String = "",
