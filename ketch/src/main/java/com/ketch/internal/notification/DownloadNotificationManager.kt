@@ -184,6 +184,10 @@ internal class DownloadNotificationManager(
         progress: Int,
         length: Long
     ): String {
+        downloadContentTexts?.progressContentText?.let {
+            return TextUtil.getTextFromCustomTemplate(speedInBPerMs, progress, length, it)
+        }
+
         val timeLeftText = TextUtil.getTimeLeftText(speedInBPerMs, progress, length)
         val speedText = TextUtil.getSpeedText(speedInBPerMs)
         val lengthText = TextUtil.getTotalLengthText(length)

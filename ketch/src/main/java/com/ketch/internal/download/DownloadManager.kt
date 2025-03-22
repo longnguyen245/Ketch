@@ -85,11 +85,13 @@ internal class DownloadManager(
                                             msg = "Download in Progress. FileName: ${downloadEntity?.fileName}, " +
                                                     "ID: ${downloadEntity?.id}, " +
                                                     "Size in bytes: ${downloadEntity?.totalBytes}, " +
-                                                    "downloadPercent: ${if (downloadEntity != null && downloadEntity.totalBytes.toInt() != 0) {
-                                                        ((downloadEntity.downloadedBytes * 100) / downloadEntity.totalBytes).toInt()
-                                                    } else {
-                                                        0
-                                                    }}%, " +
+                                                    "downloadPercent: ${
+                                                        if (downloadEntity != null && downloadEntity.totalBytes.toInt() != 0) {
+                                                            ((downloadEntity.downloadedBytes * 100) / downloadEntity.totalBytes).toInt()
+                                                        } else {
+                                                            0
+                                                        }
+                                                    }%, " +
                                                     "downloadSpeedInBytesPerMilliSeconds: ${downloadEntity?.speedInBytePerMs} b/ms"
                                         )
 
@@ -206,6 +208,16 @@ internal class DownloadManager(
                     canceledContentText = downloadRequest.downloadContentTexts?.canceledContentText
                         ?: "",
                     pausedContentText = downloadRequest.downloadContentTexts?.pausedContentText
+                        ?: "",
+                    progressContentTextOnlySeconds = downloadRequest.downloadContentTexts?.progressContentText?.onlySeconds
+                        ?: "",
+                    progressContentTextOnlyMinutes = downloadRequest.downloadContentTexts?.progressContentText?.onlySeconds
+                        ?: "",
+                    progressContentTextOnlyHours = downloadRequest.downloadContentTexts?.progressContentText?.onlyMinutes
+                        ?: "",
+                    progressContentTextMinutesAndSeconds = downloadRequest.downloadContentTexts?.progressContentText?.minutesAndSeconds
+                        ?: "",
+                    progressContentTextHoursAndMinutes = downloadRequest.downloadContentTexts?.progressContentText?.hoursAndMinutes
                         ?: ""
                 )
             )
@@ -247,7 +259,14 @@ internal class DownloadManager(
                         successContentText = downloadEntity.successContentText,
                         failedContentText = downloadEntity.failedContentText,
                         canceledContentText = downloadEntity.canceledContentText,
-                        pausedContentText = downloadEntity.pausedContentText
+                        pausedContentText = downloadEntity.pausedContentText,
+                        progressContentText = DownloadProgressContentText(
+                            onlySeconds = downloadEntity.progressContentTextOnlySeconds,
+                            onlyMinutes = downloadEntity.progressContentTextOnlyMinutes,
+                            onlyHours = downloadEntity.progressContentTextOnlyHours,
+                            minutesAndSeconds = downloadEntity.progressContentTextMinutesAndSeconds,
+                            hoursAndMinutes = downloadEntity.progressContentTextHoursAndMinutes
+                        )
                     )
                 )
             )
@@ -289,7 +308,14 @@ internal class DownloadManager(
                         failedContentText = downloadEntity.failedContentText,
                         successContentText = downloadEntity.successContentText,
                         canceledContentText = downloadEntity.canceledContentText,
-                        pausedContentText = downloadEntity.pausedContentText
+                        pausedContentText = downloadEntity.pausedContentText,
+                        progressContentText = DownloadProgressContentText(
+                            onlySeconds = downloadEntity.progressContentTextOnlySeconds,
+                            onlyMinutes = downloadEntity.progressContentTextOnlyMinutes,
+                            onlyHours = downloadEntity.progressContentTextOnlyHours,
+                            minutesAndSeconds = downloadEntity.progressContentTextMinutesAndSeconds,
+                            hoursAndMinutes = downloadEntity.progressContentTextHoursAndMinutes
+                        )
                     )
                 ).sendDownloadCancelledNotification()
             }
@@ -339,7 +365,14 @@ internal class DownloadManager(
                         failedContentText = downloadEntity.failedContentText,
                         successContentText = downloadEntity.successContentText,
                         canceledContentText = downloadEntity.canceledContentText,
-                        pausedContentText = downloadEntity.pausedContentText
+                        pausedContentText = downloadEntity.pausedContentText,
+                        progressContentText = DownloadProgressContentText(
+                            onlySeconds = downloadEntity.progressContentTextOnlySeconds,
+                            onlyMinutes = downloadEntity.progressContentTextOnlyMinutes,
+                            onlyHours = downloadEntity.progressContentTextOnlyHours,
+                            minutesAndSeconds = downloadEntity.progressContentTextMinutesAndSeconds,
+                            hoursAndMinutes = downloadEntity.progressContentTextHoursAndMinutes
+                        )
                     )
                 )
             )

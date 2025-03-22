@@ -13,9 +13,18 @@ data class DownloadTitles(
 
 @Serializable
 data class DownloadContentTexts(
-    var progressContentText: String? = null,
+    var progressContentText: DownloadProgressContentText? = null,
     val failedContentText: String? = null,
     val successContentText: String? = null,
     val canceledContentText: String? = null,
     val pausedContentText: String? = null,
+)
+
+@Serializable
+data class DownloadProgressContentText(
+    val onlySeconds: String,
+    val onlyMinutes: String,
+    val onlyHours: String,
+    val minutesAndSeconds: String,
+    val hoursAndMinutes: String
 )
