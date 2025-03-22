@@ -196,29 +196,8 @@ internal class DownloadManager(
                     lastModified = System.currentTimeMillis(),
                     userAction = UserAction.START.toString(),
                     metaData = downloadRequest.metaData,
-                    progressTitle = downloadRequest.downloadTitles?.progressTitle ?: "",
-                    failedTitle = downloadRequest.downloadTitles?.failedTitle ?: "",
-                    successTitle = downloadRequest.downloadTitles?.successTitle ?: "",
-                    canceledTitle = downloadRequest.downloadTitles?.canceledTitle ?: "",
-                    pausedTitle = downloadRequest.downloadTitles?.pausedTitle ?: "",
-                    failedContentText = downloadRequest.downloadContentTexts?.failedContentText
-                        ?: "",
-                    successContentText = downloadRequest.downloadContentTexts?.successContentText
-                        ?: "",
-                    canceledContentText = downloadRequest.downloadContentTexts?.canceledContentText
-                        ?: "",
-                    pausedContentText = downloadRequest.downloadContentTexts?.pausedContentText
-                        ?: "",
-                    progressContentTextOnlySeconds = downloadRequest.downloadContentTexts?.progressContentText?.onlySeconds
-                        ?: "",
-                    progressContentTextOnlyMinutes = downloadRequest.downloadContentTexts?.progressContentText?.onlySeconds
-                        ?: "",
-                    progressContentTextOnlyHours = downloadRequest.downloadContentTexts?.progressContentText?.onlyMinutes
-                        ?: "",
-                    progressContentTextMinutesAndSeconds = downloadRequest.downloadContentTexts?.progressContentText?.minutesAndSeconds
-                        ?: "",
-                    progressContentTextHoursAndMinutes = downloadRequest.downloadContentTexts?.progressContentText?.hoursAndMinutes
-                        ?: ""
+                    downloadTitles = downloadRequest.downloadTitles?.toJson() ?: "",
+                    downloadContentTexts = downloadRequest.downloadContentTexts?.toJson() ?: ""
                 )
             )
         }
@@ -248,26 +227,8 @@ internal class DownloadManager(
                     id = downloadEntity.id,
                     headers = WorkUtil.jsonToHashMap(downloadEntity.headersJson),
                     metaData = downloadEntity.metaData,
-                    downloadTitles = DownloadTitles(
-                        progressTitle = downloadEntity.progressTitle,
-                        successTitle = downloadEntity.successTitle,
-                        failedTitle = downloadEntity.failedTitle,
-                        canceledTitle = downloadEntity.canceledTitle,
-                        pausedTitle = downloadEntity.pausedTitle
-                    ),
-                    downloadContentTexts = DownloadContentTexts(
-                        successContentText = downloadEntity.successContentText,
-                        failedContentText = downloadEntity.failedContentText,
-                        canceledContentText = downloadEntity.canceledContentText,
-                        pausedContentText = downloadEntity.pausedContentText,
-                        progressContentText = DownloadProgressContentText(
-                            onlySeconds = downloadEntity.progressContentTextOnlySeconds,
-                            onlyMinutes = downloadEntity.progressContentTextOnlyMinutes,
-                            onlyHours = downloadEntity.progressContentTextOnlyHours,
-                            minutesAndSeconds = downloadEntity.progressContentTextMinutesAndSeconds,
-                            hoursAndMinutes = downloadEntity.progressContentTextHoursAndMinutes
-                        )
-                    )
+                    downloadTitles = WorkUtil.jsonToDownloadTitles(downloadEntity.downloadTitles),
+                    downloadContentTexts = WorkUtil.jsonToDownloadContentTexts(downloadEntity.downloadContentTexts)
                 )
             )
         }
@@ -297,26 +258,8 @@ internal class DownloadManager(
                     buttonTextConfig = buttonTextConfig,
                     requestId = id,
                     fileName = downloadEntity.fileName,
-                    downloadTitles = DownloadTitles(
-                        progressTitle = downloadEntity.progressTitle,
-                        failedTitle = downloadEntity.failedTitle,
-                        successTitle = downloadEntity.successTitle,
-                        canceledTitle = downloadEntity.canceledTitle,
-                        pausedTitle = downloadEntity.pausedTitle,
-                    ),
-                    downloadContentTexts = DownloadContentTexts(
-                        failedContentText = downloadEntity.failedContentText,
-                        successContentText = downloadEntity.successContentText,
-                        canceledContentText = downloadEntity.canceledContentText,
-                        pausedContentText = downloadEntity.pausedContentText,
-                        progressContentText = DownloadProgressContentText(
-                            onlySeconds = downloadEntity.progressContentTextOnlySeconds,
-                            onlyMinutes = downloadEntity.progressContentTextOnlyMinutes,
-                            onlyHours = downloadEntity.progressContentTextOnlyHours,
-                            minutesAndSeconds = downloadEntity.progressContentTextMinutesAndSeconds,
-                            hoursAndMinutes = downloadEntity.progressContentTextHoursAndMinutes
-                        )
-                    )
+                    downloadTitles = WorkUtil.jsonToDownloadTitles(downloadEntity.downloadTitles),
+                    downloadContentTexts = WorkUtil.jsonToDownloadContentTexts(downloadEntity.downloadContentTexts)
                 ).sendDownloadCancelledNotification()
             }
         }
@@ -354,26 +297,8 @@ internal class DownloadManager(
                     id = downloadEntity.id,
                     headers = WorkUtil.jsonToHashMap(downloadEntity.headersJson),
                     metaData = downloadEntity.metaData,
-                    downloadTitles = DownloadTitles(
-                        progressTitle = downloadEntity.progressTitle,
-                        failedTitle = downloadEntity.failedTitle,
-                        successTitle = downloadEntity.successTitle,
-                        canceledTitle = downloadEntity.canceledTitle,
-                        pausedTitle = downloadEntity.pausedTitle,
-                    ),
-                    downloadContentTexts = DownloadContentTexts(
-                        failedContentText = downloadEntity.failedContentText,
-                        successContentText = downloadEntity.successContentText,
-                        canceledContentText = downloadEntity.canceledContentText,
-                        pausedContentText = downloadEntity.pausedContentText,
-                        progressContentText = DownloadProgressContentText(
-                            onlySeconds = downloadEntity.progressContentTextOnlySeconds,
-                            onlyMinutes = downloadEntity.progressContentTextOnlyMinutes,
-                            onlyHours = downloadEntity.progressContentTextOnlyHours,
-                            minutesAndSeconds = downloadEntity.progressContentTextMinutesAndSeconds,
-                            hoursAndMinutes = downloadEntity.progressContentTextHoursAndMinutes
-                        )
-                    )
+                    downloadTitles = WorkUtil.jsonToDownloadTitles(downloadEntity.downloadTitles),
+                    downloadContentTexts = WorkUtil.jsonToDownloadContentTexts(downloadEntity.downloadContentTexts)
                 )
             )
         }

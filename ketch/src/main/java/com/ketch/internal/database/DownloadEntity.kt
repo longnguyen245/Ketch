@@ -3,7 +3,6 @@ package com.ketch.internal.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.ketch.Status
-import com.ketch.internal.download.DownloadProgressContentText
 import com.ketch.internal.utils.UserAction
 
 @Entity(
@@ -14,20 +13,8 @@ internal data class DownloadEntity(
     var path: String = "",
     var fileName: String = "",
     var tag: String = "",
-    var progressTitle: String = "",
-    var failedTitle: String = "",
-    var successTitle: String = "",
-    var canceledTitle: String = "",
-    var pausedTitle: String = "",
-    val progressContentTextOnlySeconds: String,
-    val progressContentTextOnlyMinutes: String,
-    val progressContentTextOnlyHours: String,
-    val progressContentTextMinutesAndSeconds: String,
-    val progressContentTextHoursAndMinutes: String,
-    val failedContentText: String = "",
-    val successContentText: String = "",
-    val canceledContentText: String = "",
-    val pausedContentText: String = "",
+    val downloadTitles: String = "",
+    val downloadContentTexts: String = "",
 
     @PrimaryKey
     var id: Int = 0,

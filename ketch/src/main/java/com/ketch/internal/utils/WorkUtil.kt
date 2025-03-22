@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.core.app.NotificationManagerCompat
 import com.ketch.ButtonTextConfig
 import com.ketch.NotificationConfig
+import com.ketch.internal.download.DownloadContentTexts
 import com.ketch.internal.download.DownloadRequest
+import com.ketch.internal.download.DownloadTitles
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -38,6 +40,28 @@ internal object WorkUtil {
             return ButtonTextConfig()
         }
         return Json.decodeFromString(jsonStr)
+    }
+
+    fun jsonToDownloadTitles(jsonStr: String): DownloadTitles {
+        if (jsonStr.isEmpty()) {
+            return DownloadTitles()
+        }
+        return Json.decodeFromString(jsonStr)
+    }
+
+    fun DownloadTitles.toJson(): String {
+        return Json.encodeToString(this)
+    }
+
+    fun jsonToDownloadContentTexts(jsonStr: String): DownloadContentTexts {
+        if (jsonStr.isEmpty()) {
+            return DownloadContentTexts()
+        }
+        return Json.decodeFromString(jsonStr)
+    }
+
+    fun DownloadContentTexts.toJson(): String {
+        return Json.encodeToString(this)
     }
 
     fun hashMapToJson(headers: HashMap<String, String>): String {
