@@ -139,7 +139,7 @@ class MainFragment : Fragment() {
             )
         )
 
-        fragmentMainBinding.bt1.text = "Video 1"
+        fragmentMainBinding.bt1.text = "Video 1 (with custom title)"
         fragmentMainBinding.bt1.setOnClickListener {
             ketch.download(
                 url = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
