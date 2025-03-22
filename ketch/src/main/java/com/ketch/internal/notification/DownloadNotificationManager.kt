@@ -265,10 +265,6 @@ internal class DownloadNotificationManager(
                 )
                 putExtra(
                     NotificationConst.KEY_NOTIFICATION_SMALL_ICON,
-                    notificationConfig.smallIcon
-                )
-                putExtra(
-                    NotificationConst.KEY_NOTIFICATION_SMALL_ICON,
                     notificationConfig.smallIcons.failed
                 )
                 putExtra(NotificationConst.CANCEL_BUTTON_TEXT, buttonTextConfig.cancel)
