@@ -85,13 +85,11 @@ internal class DownloadManager(
                                             msg = "Download in Progress. FileName: ${downloadEntity?.fileName}, " +
                                                     "ID: ${downloadEntity?.id}, " +
                                                     "Size in bytes: ${downloadEntity?.totalBytes}, " +
-                                                    "downloadPercent: ${
-                                                        if (downloadEntity != null && downloadEntity.totalBytes.toInt() != 0) {
-                                                            ((downloadEntity.downloadedBytes * 100) / downloadEntity.totalBytes).toInt()
-                                                        } else {
-                                                            0
-                                                        }
-                                                    }%, " +
+                                                    "downloadPercent: ${if (downloadEntity != null && downloadEntity.totalBytes.toInt() != 0) {
+                                                        ((downloadEntity.downloadedBytes * 100) / downloadEntity.totalBytes).toInt()
+                                                    } else {
+                                                        0
+                                                    }}%, " +
                                                     "downloadSpeedInBytesPerMilliSeconds: ${downloadEntity?.speedInBytePerMs} b/ms"
                                         )
 
