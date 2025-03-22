@@ -145,7 +145,7 @@ internal class DownloadNotificationManager(
             )
 
             var nb = notificationBuilder
-                .setSmallIcon(notificationConfig.smallIcon)
+                .setSmallIcon(notificationConfig.smallIcons.progress)
                 .setContentTitle(downloadTitles?.progressTitle ?: "Downloading $fileName")
                 .setContentIntent(pendingIntentOpen)
                 .setProgress(DownloadConst.MAX_VALUE_PROGRESS, progress, if (length == 0L) true else false)
@@ -227,7 +227,7 @@ internal class DownloadNotificationManager(
                 )
                 putExtra(
                     NotificationConst.KEY_NOTIFICATION_SMALL_ICON,
-                    notificationConfig.smallIcon
+                    notificationConfig.smallIcons.success
                 )
                 putExtra(NotificationConst.CANCEL_BUTTON_TEXT, buttonTextConfig.cancel)
                 putExtra(NotificationConst.PAUSE_BUTTON_TEXT, buttonTextConfig.pause)
@@ -267,7 +267,10 @@ internal class DownloadNotificationManager(
                     NotificationConst.KEY_NOTIFICATION_SMALL_ICON,
                     notificationConfig.smallIcon
                 )
-
+                putExtra(
+                    NotificationConst.KEY_NOTIFICATION_SMALL_ICON,
+                    notificationConfig.smallIcons.failed
+                )
                 putExtra(NotificationConst.CANCEL_BUTTON_TEXT, buttonTextConfig.cancel)
                 putExtra(NotificationConst.PAUSE_BUTTON_TEXT, buttonTextConfig.pause)
                 putExtra(NotificationConst.RESUME_BUTTON_TEXT, buttonTextConfig.resume)
@@ -303,7 +306,7 @@ internal class DownloadNotificationManager(
                 )
                 putExtra(
                     NotificationConst.KEY_NOTIFICATION_SMALL_ICON,
-                    notificationConfig.smallIcon
+                    notificationConfig.smallIcons.cancelled
                 )
                 putExtra(NotificationConst.CANCEL_BUTTON_TEXT, buttonTextConfig.cancel)
                 putExtra(NotificationConst.PAUSE_BUTTON_TEXT, buttonTextConfig.pause)
@@ -340,7 +343,7 @@ internal class DownloadNotificationManager(
                 )
                 putExtra(
                     NotificationConst.KEY_NOTIFICATION_SMALL_ICON,
-                    notificationConfig.smallIcon
+                    notificationConfig.smallIcons.paused
                 )
                 putExtra(NotificationConst.CANCEL_BUTTON_TEXT, buttonTextConfig.cancel)
                 putExtra(NotificationConst.PAUSE_BUTTON_TEXT, buttonTextConfig.pause)
