@@ -57,7 +57,6 @@ internal class DownloadWorker(
         val dirPath = downloadRequest.path
         val fileName = downloadRequest.fileName
         val headers = downloadRequest.headers
-        val supportPauseResume = downloadRequest.supportPauseResume // in case of false, we will not store total length info in DB
         val downloadTitles = downloadRequest.downloadTitles
         val downloadContentText = downloadRequest.downloadContentTexts
 
@@ -103,7 +102,6 @@ internal class DownloadWorker(
                 url = url,
                 path = dirPath,
                 fileName = fileName,
-                supportPauseResume = supportPauseResume,
                 downloadService = downloadService
             ).download(
                 headers = headers,

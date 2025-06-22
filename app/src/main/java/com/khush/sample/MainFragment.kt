@@ -142,7 +142,7 @@ class MainFragment : Fragment() {
         fragmentMainBinding.bt1.text = "Video 1 (with custom title)"
         fragmentMainBinding.bt1.setOnClickListener {
             ketch.download(
-                url = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                url = "https://dl3.soft98.ir/linux/debian-12.10.0-i386-DVD-1.iso?1742478582",
                 path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path,
                 fileName = "Sample_Video_1.mp4",
                 tag = "Video",
@@ -170,13 +170,13 @@ class MainFragment : Fragment() {
             )
         }
 
-        fragmentMainBinding.bt2.text = "Video 2"
+        fragmentMainBinding.bt2.text = "Windows11"
         fragmentMainBinding.bt2.setOnClickListener {
             ketch.download(
-                url = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                url = "https://dl3.soft98.ir/win/Windows.11.v24H2.Build.26100.3476.x64-VL.part1.rar?1742478603",
                 path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path,
-                fileName = "Sample_Video_2.mp4",
-                tag = "Video",
+                fileName = "Windows11",
+                tag = "file",
                 metaData = "169"
             )
         }
